@@ -7,13 +7,13 @@ services:
     volumes:
       - data:/var/lib/cockroach
     expose:
-      - "8080"
+      - "8087"
       - "26257"
     ports:
       - "26257:26257"
-      - "8080:8080"
+      - "8087:8087"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health?ready=1"]
+      test: ["CMD", "curl", "-f", "http://localhost:8087/health?ready=1"]
       interval: 3s
       timeout: 3s
       retries: 5
@@ -62,7 +62,7 @@ services:
       scrape_configs:
         - job_name: prometheus
           static_configs:
-          - targets: ['localhost:9090']
+          - targets: ['localhost:9091']
 
         - job_name: nakama
           metrics_path: /
@@ -72,6 +72,6 @@ services:
       prometheus --config.file=./prometheus.yml
       EOF'
     ports:
-      - '9090:9090'
+      - '9091:9091'
 volumes:
   data:
